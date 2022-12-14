@@ -1,10 +1,12 @@
-use axum::{routing::get, Router};
+mod adapter;
+mod application;
+use adapter::web::v1::controller;
+use axum::{routing::post, Router};
 use std::net::SocketAddr;
-mod controller;
 
 #[tokio::main]
 async fn main() {
-    let app = Router::new().route("/", get(controller::hello_controller::hello));
+    let app = Router::new().route("/", post(controller::hello_controller::hello));
 
     let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
 
